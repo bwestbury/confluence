@@ -14,22 +14,24 @@
 #include <fstream>
 #include <set>
 
+using namespace std;
+
 namespace Confluence
 {
 
-// template<typename T>
-// ofstream& operator<<(ofstream &os, const set< T > &s) {
-// 	copy(s.begin(), s.end(), ostream_iterator<T>(os, " "));
-// 	return os;
-// }
-// 
-// template<class T>
-// ostream& operator<<(ostream &os, const set< T > &s) {
-// 	os << "{";
-// 	copy(s.begin(), s.end(), ostream_iterator<T>(os, ", "));
-// 	os << "}";
-// 	return os;
-// }
+template<class T>
+ofstream& operator<<(ofstream &os, const set< T > &s) {
+	copy(s.begin(), s.end(), ostream_iterator<T>(os, " "));
+	return os;
+}
+
+template<class T>
+ostream& operator<<(ostream &os, const set< T > &s) {
+	os << "{";
+	copy(s.begin(), s.end(), ostream_iterator<T>(os, ", "));
+	os << "}";
+	return os;
+}
 
 }
 

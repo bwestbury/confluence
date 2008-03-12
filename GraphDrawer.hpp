@@ -1,6 +1,12 @@
 // 
 //  GraphDrawer.hpp
 //  confluence
+//
+//	Forms the basis for the drawing of Graph objects.
+//
+//	This class actually constructs a drawing of a Graph object,
+//	but requires a subclass to output it to a file (so that different
+//	file formats can be easily added).
 //  
 //  Created by David Howden on 2007-08-21.
 //  Copyright 2007 David Howden. All rights reserved.

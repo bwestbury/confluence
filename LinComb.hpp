@@ -2,6 +2,11 @@
 //  LinComb.hpp
 //  confluence
 //  
+//	Handles linear combinations.  Both the coefficients and base objects
+//	are templated.  As yet, there is no simplification in addition.
+//
+//	This class relies on multiplication operations *= defined for the coefficients.
+//
 //  Created by David Howden on 2007-06-20.
 //  Copyright 2007 David Howden. All rights reserved.
 // 
@@ -24,6 +29,11 @@ class LinComb
 public:
 	LinComb() {}
 	
+	/*
+		Construct a linear combination of one element, 
+		with object E and coefficient F
+		
+	*/
 	LinComb(E object, F coef) {
 		pair<E, F> p(object, coef);
 		contents.push_back(p);
@@ -33,6 +43,13 @@ public:
 		
 	}
 	
+	
+	/*
+		Add two linear combination together and return the result.
+		
+		NB: This does not simplify the result, it simply adds the
+		two combinations as arrays.
+	*/
 	LinComb<E, F> operator+ (LinComb<E,F> &lc)
 	{
 		LinComb<E, F> result;
@@ -47,6 +64,12 @@ public:
 		return result;
 	}
 	
+	
+	/*
+		Multiply this LinComb through by a coefficient F
+		
+		Returns the resulting LinComb object.
+	*/
 	LinComb<E, F> operator* (const F &coef)
 	{
 		LinComb<E, F> result;
@@ -54,11 +77,16 @@ public:
 		result.contents = contents;
 		
 		for(typename list< pair<E,F> >::iterator iter = result.contents.begin(); iter != result.contents.end(); iter++) {
-			iter->second*=coef;
+			iter->second *= coef;
 		}
 		return result;
 	}
 	
+	/*
+		Multiply this LinComb through by a coefficient F
+		
+		Stores the result in this object (ie *= operation)
+	*/
 	void operator*= (const F &coef)
 	{
 		for(typename list< pair<E,F> >::iterator iter = contents.begin(); iter != contents.end(); iter++) {
@@ -66,6 +94,10 @@ public:
 		}
 	}
 	
+	/*
+		Outputs this linear combination to the output stream os
+		
+	*/
 	ostream &output(ostream &os)
 	{
 		typename list< pair<E,F> >::iterator iter = contents.begin();
@@ -82,7 +114,7 @@ public:
 	}
 	
 private:
-	list< pair<E,F> > contents;
+	list< pair<E, F> > contents;
 };
 
 template<class E, class F>

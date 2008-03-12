@@ -22,26 +22,6 @@ using namespace std;
 
 namespace Confluence {
 
-template<class T>
-ostream& operator<<(ostream &os, const set< T > &s);
-
-template<class T>
-ofstream& operator<<(ofstream &os, const set< T > &s);
-
-template<class T>
-ofstream& operator<<(ofstream &os, const set< T > &s) {
-	copy(s.begin(), s.end(), ostream_iterator<T>(os, " "));
-	return os;
-}
-
-template<class T>
-ostream& operator<<(ostream &os, const set< T > &s) {
-	os << "{";
-	copy(s.begin(), s.end(), ostream_iterator<T>(os, ", "));
-	os << "}";
-	return os;
-}
-
 class Graph
 {
 public:
@@ -133,6 +113,7 @@ public:
 		fout.close();
 	}
 	
+	
 	void rotate(int k) {
 		if(0 < k && k < B) {
 			int *p = new int[N];
@@ -156,6 +137,11 @@ public:
 		}
 	}
 	
+	
+	/*
+		Renumbers the points according to the permutation int *p
+		
+	*/
 	void renumber(int *p)
 	{
 		//output(p);
@@ -186,11 +172,22 @@ public:
 		e = ec;
 	}
 	
+	
+	/*
+		Intermediate function for Graph::glue(Graph &g, int n) below.
+		
+		Glues g1 and g2 together at n points.
+	*/
 	Graph glue(Graph g1, Graph &g2, int n) {
 		g1.glue(g2, n);
 		return g1;
 	}
 	
+	
+	/*
+		Glues another Graph g to this one at n points
+		
+	*/
 	void glue(Graph &g, int n) {
 		
 		int i;
@@ -277,6 +274,11 @@ public:
 		//I = nI;
 	}
 	
+	
+	/*
+		Tests if the Graph g is isomorphic to this one.
+		
+	*/
 	bool isomorphic(Graph &g) {
 		if(B == 0) {
 			cerr << "Need nonempty boundary." << endl;
@@ -344,6 +346,11 @@ public:
 		return true;
 	}
 	
+	
+	/*
+		Converts the graph into the normal form.
+		
+	*/
 	void normalForm() {
 		int x, y, z;
 
@@ -400,11 +407,21 @@ public:
 		}
 	}
 	
+	
+	/*
+		Computes the closure of the given graph g and returns the result
+		
+		Uses Graph.closure()
+	*/
 	Graph closure(Graph g) {
         g.closure();
         return g;
 	}
 	
+	/*
+		Converts the current Graph object to its normal form
+		
+	*/
 	void closure()
 	{
         int B3 = 3*B;
@@ -464,6 +481,13 @@ public:
 		}
 	}
 	
+	
+	/*
+		Performs verification that the maps c and e are valid (to a point).
+		
+		These are only simple tests, but help to easily determine if something
+		has gone wrong somewhere along the way.
+	*/
 	bool checkMaps() {
 		// check that e is an involution and c a bijection...
 		
@@ -527,6 +551,12 @@ public:
 		checkMaps();
 	}
 	
+	
+	/*
+		Outputs the permutation p (assumed to be for this Graph object and so
+		is of length N), to stdout
+		
+	*/
 	void output(int *p) {
 		cout << "Permutation:" << endl;
 		cout << "  i   ";
@@ -542,6 +572,18 @@ public:
 		cout << endl;
 	}
 	
+	
+	/*
+		Appends the raw text representation of this graph object
+		
+		The format is as follows:
+		
+		|B| |E| |I|
+		{ i \in I }
+		{ c(i) 0 <= i < N }
+		{ e(i) 0 <= i < N }
+		
+	*/
 	ofstream &raw_output(ofstream &os) {
 		os << B << " " << E << " " << I.size() << endl << I << endl;
 		for(int i = 0; i < N; i++) {
@@ -610,7 +652,12 @@ private:
     //  }
     //  return p;
     // }
+	
+	
+	/*
+		Removes the points x and y from I and alteres the object accordingly
 		
+	*/
 	void removePoints(int x, int y)
 	{
 		int min, max;
@@ -661,12 +708,10 @@ private:
 	set<int> I;
 };
 
-// template<class F>
 ostream &operator<<(ostream &os, Graph &g) {
 	return g.output(os);
 }
 
-// template<class F>
 ofstream &operator<<(ofstream &os, Graph &g) {
 	return g.raw_output(os);
 }

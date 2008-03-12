@@ -2,11 +2,13 @@
 //  TL.cpp
 //  confluence
 //  
+//  Temperley-Lieb Testing using Confluence functions
+//  
 //  Created by David Howden on 2007-06-27.
 //  Copyright 2007 David Howden. All rights reserved.
 // 
 
-#include "Confluence.hpp"
+// #include "Confluence.hpp"
 #include "Graph.hpp"
 #include "SVGGraphDrawer.hpp"
 

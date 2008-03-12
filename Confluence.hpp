@@ -2,6 +2,10 @@
 //  Confluence.hpp
 //  confluence
 //  
+//  Main header file for Confluence.
+//  
+//  Provides generic simplification of elements using RewriteSystem objects.
+//  
 //  Created by David Howden on 2007-06-20.
 //  Copyright 2007 David Howden. All rights reserved.
 // 
@@ -29,12 +33,25 @@ class Confluence
 	friend class LinComb<E, F>;
 public:
 	
+	
+	/*
+		Reduces a single element, given by coefficient F and base E, and returns
+		the resulting linear combination.
+		
+		By definition, this linear combination should only have one term in.
+	*/
 	LinComb<E, F> simplifyElement(const E base, const F coeff, const RewriteSystem<E, F> &rewriteSystem) {
 		LinComb<E, F> result(base, coeff);
 		simplifyElement(result, rewriteSystem);
 		return result;
 	}
 	
+	
+	/*
+		Reduces a linear combination to its minimal form using a rewrite system.
+		
+		NB: This function actually acts on base, and so base becomes the reduced form
+	*/
 	void simplifyElement(LinComb<E, F> &base, const RewriteSystem<E, F> &rewriteSystem) {
 		
 		LinComb<E, F> simplifiedComb;
