@@ -60,7 +60,6 @@ public:
 
 		//  loop through all of the base elements
 		for(typename LinComb<E, F>::iterator objectIter = base.begin(); objectIter != base.end(); objectIter++) {
-			
 			while(flag) {
 				flag = false;
 				// loop through all of the rewrite rules
