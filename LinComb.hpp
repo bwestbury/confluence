@@ -30,10 +30,11 @@ class LinComb
 public:	
 	
 	/*
-		Typedef definitions for ease of use elsewhere
+		Typedef definitions of iterators
 	*/
 	typedef typename list< pair<E, F> >::iterator iterator;
 	typedef typename list< pair<E, F> >::const_iterator const_iterator;
+	
 	
 	/*
 		Empty contructor
