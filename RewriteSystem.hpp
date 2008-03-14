@@ -27,6 +27,10 @@ template <class E, class F>
 class RewriteSystem {
 public:
 	
+	/*
+		Iterator type definitions
+		
+	*/
 	typedef typename list< pair<E, LinComb<E, F> > >::iterator iterator;
 	typedef typename list< pair<E, LinComb<E, F> > >::const_iterator const_iterator;
 	
@@ -38,10 +42,10 @@ public:
 		Adds a rewrite rule to this rewrite system.
 		
 	*/
-	void addRewriteRule(E lhs, LinComb<E, F> rhs)
+	void push_back(E lhs, LinComb<E, F> rhs)
 	{
 		pair<E, LinComb<E, F> > p(lhs, rhs);
-		rewriteRules.push_back(p);
+		rules.push_back(p);
 	}
 	
 	/*
@@ -54,29 +58,57 @@ public:
 		
 	}
 	
+	
+	/*
+		Iterator for the first rewriteRule
+	*/
 	iterator begin()
 	{
-		return rewriteRules.begin();
+		return rules.begin();
 	}
 	
+	
+	/*
+		Constant iterator for the first rewriteRule
+	*/
 	const_iterator begin() const
 	{
-		return rewriteRules.begin();
+		return rules.begin();
 	}
 	
+	
+	/*
+		Iterator for the last rewriteRule
+	*/
 	iterator end()
 	{
-		return rewriteRules.end();
+		return rules.end();
 	}
 	
+	
+	/*
+		Constant iterator for the last rewriteRule
+	*/
 	const_iterator end() const
 	{
-		return rewriteRules.end();
+		return rules.end();
+	}
+	
+	void output(ostream &os)
+	{
+		for(const_iterator iter = begin(); iter != end(); iter++)
+			os << lhs << " --> " << rhs << endl;
 	}
 	
 private:
-	list< pair<E, LinComb<E, F> > > rewriteRules;
+	list< pair<E, LinComb<E, F> > > rules;
 };
+
+ostream &operator<< (ostream &os, RewriteSystem &rs)
+{
+	rs.output(os);
+	return os;
+}
 
 }
 
