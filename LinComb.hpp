@@ -15,6 +15,7 @@
 #define _LINCOMB_HPP_
 
 #include <iostream>
+#include <iterator>
 #include <utility>
 #include <list>
 
@@ -27,7 +28,15 @@ template <class E, class F>
 class LinComb
 {
 public:
+	
+	// static typename list< pair<E, F> >::iterator iterator;
+	
+	
+	/*
+		Empty contructor
+	*/
 	LinComb() {}
+	
 	
 	/*
 		Construct a linear combination of one element, 
@@ -35,12 +44,22 @@ public:
 		
 	*/
 	LinComb(E object, F coef) {
-		pair<E, F> p(object, coef);
-		contents.push_back(p);
+		push_back(object, coef);
 	}
+	
 	
 	~LinComb() {
 		
+	}
+	
+	
+	/*
+		Adds a term to the end of the linear combination
+	*/
+	void push_back(E object, F coef)
+	{
+		pair<E, F> p(object, coef);
+		contents.push_back(p);
 	}
 	
 	
@@ -57,11 +76,26 @@ public:
 		// copy the items from this object
 		result.contents = contents;
 		
-		// copy the items from lc
-		result.contents.splice(result.contents.end(), lc.contents, lc.contents.begin(), lc.contents.end());
+		// copy the items from lc using operator+=
+		result += lc;
 		
 		// no simplification here yet!
 		return result;
+	}
+	
+	
+	/*
+		Add the given LinComb object to this one
+		
+		NB: this function simply appends the given LinComb object to
+		this one.
+	*/
+	void operator+= (LinComb<E, F> &lc)
+	{
+		//contents.splice(contents.end(), lc.contents, lc.contents.begin(), lc.contents.end());
+		for (typename list< pair<E, F> >::iterator iter = lc.begin(); iter != lc.end(); iter++) {
+			contents.push_back(*iter);
+		}
 	}
 	
 	
@@ -82,6 +116,7 @@ public:
 		return result;
 	}
 	
+	
 	/*
 		Multiply this LinComb through by a coefficient F
 		
@@ -93,6 +128,7 @@ public:
 			iter->second *= coef;
 		}
 	}
+	
 	
 	/*
 		Outputs this linear combination to the output stream os
@@ -111,6 +147,46 @@ public:
 			}
 		}
 		return os;
+	}
+	
+	
+	/*
+		Removes the first item from the LinComb object and returns it
+		
+	*/
+	pair<E, F> pop_front()
+	{
+		return contents.pop_front();
+	}
+	
+	
+	/*
+		Checks if this LinComb object has any terms
+		
+	*/
+	bool empty()
+	{
+		return contents.empty();
+	}
+	
+	
+	/*
+		Returns the begin() iterator of the terms
+		
+	*/
+	typename list< pair<E, F> >::iterator begin()
+	{
+		return contents.begin();
+	}
+	
+	
+	/*
+		Returns the end() iterator of the terms
+		
+	*/
+	typename list< pair<E, F> >::iterator end()
+	{
+		return contents.end();
 	}
 	
 private:

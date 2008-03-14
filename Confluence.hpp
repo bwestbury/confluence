@@ -1,4 +1,4 @@
-// 
+//
 //  Confluence.hpp
 //  confluence
 //  
@@ -8,7 +8,7 @@
 //  
 //  Created by David Howden on 2007-06-20.
 //  Copyright 2007 David Howden. All rights reserved.
-// 
+//
 
 #ifndef _CONFLUENCE_HPP_
 #define _CONFLUENCE_HPP_
@@ -85,7 +85,7 @@ public:
 						simplifiedComb.pop_front();
 
 						// the new objects are added to the end of the list to be simplified later
-						base+=simplifiedComb;
+						base += simplifiedComb;
 
 						// and since we have simplified the expression, we need to mark the flag
 						flag = true;

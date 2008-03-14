@@ -18,7 +18,6 @@ using namespace std;
 namespace Confluence
 {
 
-template<class F>
 class String
 {
 public:
@@ -28,16 +27,42 @@ public:
 	}
 	~String() {}
 	
-	bool operator==(const String &str) {
+	bool operator==(const String &str)
+	{
 		return (s == str.s);
 	}
 	
-	LinComb<String, F> searchReplace(const String &needle, const LinComb<String,F> &replacement) {
-		return NULL;
+	template<class F>
+	LinComb<String, F> searchReplace(const String &needle, const LinComb<String,F> &replacement)
+	{
+		LinComb<String, F> result;
+		
+		size_t position = s.find(needle.s);
+		if (position == string::npos)
+			return result;
+
+		for (typename list< pair<String, F> >::iterator iter = replacement.begin(); iter != replacement.end(); iter++) {
+			result.push_back(s.replace(position, needle.s.length(), iter->first.s), iter->second);
+		}
+		
+		return result;
 	}
+	
+	ostream &output(ostream& os)
+	{
+		os << s;
+		return os;
+	}
+	
 private:
 	string s;
 };
+
+ostream &operator<< (ostream& os, String str)
+{
+	str.output(os);
+	return os;
+}
 
 }
 

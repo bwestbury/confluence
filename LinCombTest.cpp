@@ -45,13 +45,15 @@ int main (int argc, char const *argv[])
 	// LinComb<Test, ex> lc1(t1, p1), lc2(t2, p2);
 	LinComb<Test, int> lc1(t1, 1), lc2(t2, 2);
 	
-	cout << lc1 << endl << lc2 << endl;
+	cout << "lc1: " << lc1 << endl << "lc2: " << lc2 << endl;
 	
 	// LinComb<Test, ex> lc;
 	LinComb<Test, int> lc;
 	lc = lc1 + lc2;
 	
-	cout << lc << endl;
+	cout << "lc: " << lc << endl;
+	cout << "lc1: " << lc1 << endl;
+	cout << "lc2: " << lc2 << endl;
 	
 	return 0;
 }
