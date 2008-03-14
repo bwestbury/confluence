@@ -59,12 +59,12 @@ public:
 		bool flag = true;
 
 		//  loop through all of the base elements
-		for(typename list< pair<E, LinComb<E, F> > >::iterator objectIter = base.begin(); objectIter != base.end(); objectIter++) {
+		for(typename LinComb<E, F>::iterator objectIter = base.begin(); objectIter != base.end(); objectIter++) {
 			
 			while(flag) {
 				flag = false;
 				// loop through all of the rewrite rules
-				for(typename list< pair< E, LinComb<E, F> > >::iterator ruleIter = rewriteSystem.rewriteRules.begin(); ruleIter != rewriteSystem.rewriteRules.end(); ruleIter++) {
+				for(typename RewriteSystem<E, F>::const_iterator ruleIter = rewriteSystem.begin(); ruleIter != rewriteSystem.end(); ruleIter++) {
 					// apply the rule to the base element, which returns a linear combination which
 					// is equivalent to (*objectIter).
 

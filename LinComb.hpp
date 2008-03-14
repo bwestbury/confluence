@@ -27,10 +27,13 @@ namespace Confluence
 template <class E, class F>
 class LinComb
 {
-public:
+public:	
 	
-	// static typename list< pair<E, F> >::iterator iterator;
-	
+	/*
+		Typedef definitions for ease of use elsewhere
+	*/
+	typedef typename list< pair<E, F> >::iterator iterator;
+	typedef typename list< pair<E, F> >::const_iterator const_iterator;
 	
 	/*
 		Empty contructor
@@ -93,7 +96,7 @@ public:
 	void operator+= (LinComb<E, F> &lc)
 	{
 		//contents.splice(contents.end(), lc.contents, lc.contents.begin(), lc.contents.end());
-		for (typename list< pair<E, F> >::iterator iter = lc.begin(); iter != lc.end(); iter++) {
+		for (iterator iter = lc.begin(); iter != lc.end(); iter++) {
 			contents.push_back(*iter);
 		}
 	}
@@ -110,7 +113,7 @@ public:
 		
 		result.contents = contents;
 		
-		for(typename list< pair<E,F> >::iterator iter = result.contents.begin(); iter != result.contents.end(); iter++) {
+		for(iterator iter = result.contents.begin(); iter != result.contents.end(); iter++) {
 			iter->second *= coef;
 		}
 		return result;
@@ -124,7 +127,7 @@ public:
 	*/
 	void operator*= (const F &coef)
 	{
-		for(typename list< pair<E,F> >::iterator iter = contents.begin(); iter != contents.end(); iter++) {
+		for(iterator iter = contents.begin(); iter != contents.end(); iter++) {
 			iter->second *= coef;
 		}
 	}
@@ -136,7 +139,7 @@ public:
 	*/
 	ostream &output(ostream &os)
 	{
-		typename list< pair<E,F> >::iterator iter = contents.begin();
+		iterator iter = contents.begin();
 		while(true) {
 			os << iter->first << "*" << iter->second;
 			iter++;
@@ -174,7 +177,12 @@ public:
 		Returns the begin() iterator of the terms
 		
 	*/
-	typename list< pair<E, F> >::iterator begin()
+	iterator begin()
+	{
+		return contents.begin();
+	}
+	
+	const_iterator begin() const
 	{
 		return contents.begin();
 	}
@@ -184,7 +192,12 @@ public:
 		Returns the end() iterator of the terms
 		
 	*/
-	typename list< pair<E, F> >::iterator end()
+	iterator end()
+	{
+		return contents.end();
+	}
+	
+	const_iterator end() const
 	{
 		return contents.end();
 	}

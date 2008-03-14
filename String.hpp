@@ -40,9 +40,10 @@ public:
 		size_t position = s.find(needle.s);
 		if (position == string::npos)
 			return result;
-
-		for (typename list< pair<String, F> >::iterator iter = replacement.begin(); iter != replacement.end(); iter++) {
-			result.push_back(s.replace(position, needle.s.length(), iter->first.s), iter->second);
+		
+		for (typename LinComb<String, F>::const_iterator iter = replacement.begin(); iter != replacement.end(); iter++) {
+			string s_copy = s;
+			result.push_back(s_copy.replace(position, needle.s.length(), iter->first.s), iter->second);
 		}
 		
 		return result;

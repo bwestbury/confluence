@@ -23,8 +23,9 @@ int main (int argc, char const *argv[])
 	// 	cout << test << endl;
 	String test("BAAB"), replace("D"), needle("AA");
 	LinComb<String, int> replacement(replace, 3);
-	cout << test;
+	replacement.push_back(replace, 4);
+	cout << test << endl;
 	LinComb<String, int> result = test.searchReplace(needle, replacement);
-	cout << result;
+	cout << result << endl;
 	return 0;
 }

@@ -26,6 +26,10 @@ namespace Confluence
 template <class E, class F>
 class RewriteSystem {
 public:
+	
+	typedef typename list< pair<E, LinComb<E, F> > >::iterator iterator;
+	typedef typename list< pair<E, LinComb<E, F> > >::const_iterator const_iterator;
+	
 	RewriteSystem() {}
 	
 	~RewriteSystem() {}
@@ -34,7 +38,8 @@ public:
 		Adds a rewrite rule to this rewrite system.
 		
 	*/
-	void addRewriteRule(E lhs, LinComb<E, F> rhs) {
+	void addRewriteRule(E lhs, LinComb<E, F> rhs)
+	{
 		pair<E, LinComb<E, F> > p(lhs, rhs);
 		rewriteRules.push_back(p);
 	}
@@ -48,6 +53,27 @@ public:
 	void completeKnuthBendix() {
 		
 	}
+	
+	iterator begin()
+	{
+		return rewriteRules.begin();
+	}
+	
+	const_iterator begin() const
+	{
+		return rewriteRules.begin();
+	}
+	
+	iterator end()
+	{
+		return rewriteRules.end();
+	}
+	
+	const_iterator end() const
+	{
+		return rewriteRules.end();
+	}
+	
 private:
 	list< pair<E, LinComb<E, F> > > rewriteRules;
 };
