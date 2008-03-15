@@ -158,9 +158,9 @@ public:
 		Removes the first item from the LinComb object and returns it
 		
 	*/
-	pair<E, F> pop_front()
+	void pop_front()
 	{
-		return contents.pop_front();
+		contents.pop_front();
 	}
 	
 	
