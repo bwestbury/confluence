@@ -97,14 +97,15 @@ public:
 	void output(ostream &os)
 	{
 		for(const_iterator iter = begin(); iter != end(); iter++)
-			os << lhs << " --> " << rhs << endl;
+			os << iter->first << " --> " << iter->second << endl;
 	}
 	
 private:
 	list< pair<E, LinComb<E, F> > > rules;
 };
 
-ostream &operator<< (ostream &os, RewriteSystem &rs)
+template<class E, class F>
+ostream &operator<< (ostream &os, RewriteSystem<E, F> &rs)
 {
 	rs.output(os);
 	return os;
