@@ -10,6 +10,7 @@
 #include <string>
 
 #include "String.hpp"
+#include "Confluence.hpp"
 
 using namespace std;
 using namespace Confluence;
@@ -27,5 +28,12 @@ int main (int argc, char const *argv[])
 	cout << test << endl;
 	LinComb<String, int> result = test.searchReplace(needle, replacement);
 	cout << result << endl;
+	
+	RewriteSystem<String, int> rw_system;
+	rw_system.push_back(needle, replacement);
+
+	LinComb<String, int> result2 = Simplify::simplifyElement(test, 1, rw_system);
+	cout << endl << result2 << endl;
+	
 	return 0;
 }
