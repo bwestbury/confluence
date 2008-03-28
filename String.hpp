@@ -49,6 +49,28 @@ public:
 		return result;
 	}
 	
+		
+	String computeOverlap(const String &str)
+	{
+		
+	}
+	
+	bool operator>=(const String &str)
+	{
+		return s >= str.s;
+	}
+	
+	bool operator>(const String &str)
+	{
+		return s > str.s;
+	}
+	
+	bool operator<(const String &str)
+	{
+		return s < str.s;
+	}
+	
+	
 	ostream &output(ostream& os)
 	{
 		os << s;
