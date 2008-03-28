@@ -68,6 +68,66 @@ public:
 	
 	
 	/*
+		Removes the first item from the LinComb object and returns it
+		
+	*/
+	void pop_front()
+	{
+		contents.pop_front();
+	}
+	
+	
+	/*
+		Checks if this LinComb object has any terms
+		
+	*/
+	bool empty()
+	{
+		return contents.empty();
+	}
+	
+	
+	/*
+		Returns the begin() iterator of the terms
+		
+	*/
+	iterator begin()
+	{
+		return contents.begin();
+	}
+	
+	
+	/*
+		Returns the begin() cont_iterator of the terms
+		
+	*/
+	const_iterator begin() const
+	{
+		return contents.begin();
+	}
+	
+	
+	/*
+		Returns the end() iterator of the terms
+		
+	*/
+	iterator end()
+	{
+		return contents.end();
+	}
+	
+	
+	/*
+		Returns the begin() const_iterator of the terms
+		
+	*/
+	const_iterator end() const
+	{
+		return contents.end();
+	}
+	
+	
+	/*
 		Add two linear combination together and return the result.
 		
 		NB: This does not simplify the result, it simply adds the
@@ -134,11 +194,34 @@ public:
 	}
 	
 	
+	bool operator< (const LinComb<E, F> &lc)
+	{
+		if (contents.size < lc.contents.size) {
+			return true;
+		}
+		
+		// TODO:  add more code here!
+		
+		return false;
+	}
+	
+	
+	bool operator> (const LibComb<E, F> &lc)
+	{
+		return lc > this;
+	}
+	
+	LinComb<E, F> computeOverlap (LinComb<E, F> &lc)
+	{
+		
+	}
+	
+	
 	/*
 		Outputs this linear combination to the output stream os
 		
 	*/
-	ostream &output(ostream &os)
+	ostream &output (ostream &os)
 	{
 		iterator iter = contents.begin();
 		while(true) {
@@ -153,55 +236,6 @@ public:
 		return os;
 	}
 	
-	
-	/*
-		Removes the first item from the LinComb object and returns it
-		
-	*/
-	void pop_front()
-	{
-		contents.pop_front();
-	}
-	
-	
-	/*
-		Checks if this LinComb object has any terms
-		
-	*/
-	bool empty()
-	{
-		return contents.empty();
-	}
-	
-	
-	/*
-		Returns the begin() iterator of the terms
-		
-	*/
-	iterator begin()
-	{
-		return contents.begin();
-	}
-	
-	const_iterator begin() const
-	{
-		return contents.begin();
-	}
-	
-	
-	/*
-		Returns the end() iterator of the terms
-		
-	*/
-	iterator end()
-	{
-		return contents.end();
-	}
-	
-	const_iterator end() const
-	{
-		return contents.end();
-	}
 	
 private:
 	list< pair<E, F> > contents;
