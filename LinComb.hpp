@@ -206,10 +206,11 @@ public:
 	}
 	
 	
-	bool operator> (const LibComb<E, F> &lc)
+	bool operator> (const LinComb<E, F> &lc)
 	{
-		return lc > this;
+		return lc < this;
 	}
+	
 	
 	LinComb<E, F> computeOverlap (LinComb<E, F> &lc)
 	{

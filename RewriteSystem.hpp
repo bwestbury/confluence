@@ -38,6 +38,7 @@ public:
 	
 	~RewriteSystem() {}
 	
+	
 	/*
 		Adds a rewrite rule to this rewrite system.
 		
@@ -48,13 +49,15 @@ public:
 		rules.push_back(p);
 	}
 	
+	
 	/*
 		Performs Knuth Bendix completion on this set of
 		rewrite rules.
 		
 		NB.  This function is awaiting implementation.
 	*/
-	void completeKnuthBendix() {
+	void completeKnuthBendix()
+	{
 		
 	}
 	
