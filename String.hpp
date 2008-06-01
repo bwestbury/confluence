@@ -10,6 +10,8 @@
 #define _STRING_HPP_
 
 #include <string>
+// #include <sstream>
+// #include <iostream>
 
 #include "Confluence.hpp"
 
@@ -50,26 +52,55 @@ public:
 	}
 	
 		
-	String computeOverlap(const String &str)
+	String computeOverlap (const String &str)
 	{
+		int i = 0;
+		int n = str.s.size();
 		
+		if (n > s.size())
+			n = s.size();
+		
+		string::const_iterator str_iter = str.s.end();
+		string::const_iterator iter = s.begin();
+		
+		str_iter--;
+		
+		cout << "overlap: " << (*str_iter) << " " << *iter << endl;
+		
+		while((*str_iter) == (*iter)) {
+			cout << "overlap: " << (*str_iter) << endl;
+			str_iter--;
+			iter++;
+		}
+		
+		while (s[i] == str.s[str.s.size()-i-1] && i < n) {
+			i++;
+		}
+		
+		cout << i << endl;
+		
+		String ret;
+		if (i > 0) {
+			ret.s = str.s.substr(0, str.s.size()-i)+s;
+		}
+		
+		return ret;
 	}
 	
-	bool operator>=(const String &str)
+	bool operator>= (const String &str)
 	{
 		return s >= str.s;
 	}
 	
-	bool operator>(const String &str)
+	bool operator> (const String &str)
 	{
 		return s > str.s;
 	}
 	
-	bool operator<(const String &str)
+	bool operator< (const String &str)
 	{
 		return s < str.s;
 	}
-	
 	
 	ostream &output(ostream& os)
 	{
