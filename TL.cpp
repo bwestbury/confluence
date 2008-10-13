@@ -128,12 +128,12 @@ int main (int argc, char const* argv[])
 	cout << "After Removed Loops:" << endl;
 	t.output();
 	
-    SVGGraphDrawer d;
-    cout << "Here";
-    d.constructGraphDiagram(t);
-    cout << "here2";
-    d.outputGraphDiagram("t.svg");
-    cout << "here3";
+    //SVGGraphDrawer d;
+    //cout << "Here";
+    //d.constructGraphDiagram(t);
+    //cout << "here2";
+    //d.outputGraphDiagram("t.svg");
+    //cout << "here3";
 		
 	// if(t.isomorphic(g1)) {
 	// 	cout << "Woohoooo!" << endl;
