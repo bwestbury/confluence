@@ -26,7 +26,7 @@ class Graph
 {
 public:
     
-   friend class GraphDrawer;
+	friend class GraphDrawer;
     
 	Graph () {}
 	
