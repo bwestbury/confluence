@@ -99,8 +99,9 @@ public:
 	
 	void output(ostream &os)
 	{
-		for(const_iterator iter = begin(); iter != end(); iter++)
+		for(const_iterator iter = begin(); iter != end(); iter++) {
 			os << iter->first << " --> " << iter->second << endl;
+		}
 	}
 	
 private:
