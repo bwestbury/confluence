@@ -51,41 +51,66 @@ public:
 		return result;
 	}
 	
-		
 	String computeOverlap (const String &str)
 	{
-		int i = 0;
-		int n = str.s.size();
-		
-		if (n > s.size())
-			n = s.size();
-		
-		string::const_iterator str_iter = str.s.end();
-		string::const_iterator iter = s.begin();
-		
-		str_iter--;
-		
-		cout << "overlap: " << (*str_iter) << " " << *iter << endl;
-		
-		while((*str_iter) == (*iter)) {
-			cout << "overlap: " << (*str_iter) << endl;
-			str_iter--;
-			iter++;
-		}
-		
-		while (s[i] == str.s[str.s.size()-i-1] && i < n) {
-			i++;
-		}
-		
-		cout << i << endl;
-		
-		String ret;
-		if (i > 0) {
-			ret.s = str.s.substr(0, str.s.size()-i)+s;
-		}
-		
-		return ret;
+	    if (str.s.size() > s.size())
+            return String();
+        
+        string::const_iterator iter1, iter2, str_iter;
+        iter1 = s.begin();
+        
+        for(iter1 = s.begin(); iter1 != s.end(); iter1++)
+        {
+            iter2 = iter1;
+            for (str_iter = str.s.begin(); str_iter != str.s.end(); str_iter++) {
+                if (*iter2 != *str_iter) {
+                    break;
+                }
+                iter2++;
+            }
+            if (str_iter == str.s.end()) {
+                return str;
+            }
+        }
+        
+        return String();
 	}
+	
+	
+    // String computeOverlap (const String &str)
+    // {
+    //  int i = 0;
+    //  int n = str.s.size();
+    //  
+    //  if (n > s.size())
+    //      n = s.size();
+    //  
+    //  string::const_iterator str_iter = str.s.end();
+    //  string::const_iterator iter = s.begin();
+    //  
+    //  str_iter--;
+    //  
+    //  cout << "overlap: " << (*str_iter) << " " << *iter << endl;
+    //  
+    //  while((*str_iter) == (*iter)) {
+    //      cout << "overlap: " << (*str_iter) << endl;
+    //      str_iter--;
+    //      iter++;
+    //  }
+    //  
+    //  while (s[i] == str.s[str.s.size()-i-1] && i < n) {
+    //      i++;
+    //  }
+    //  
+    //  cout << i << endl;
+    //  
+    //  String ret;
+    //  if (i > 0) {
+    //      ret.s = str.s.substr(0, str.s.size()-i)+s;
+    //  }
+    //  
+    //  return ret;
+    // }
 	
 	bool operator>= (const String &str)
 	{

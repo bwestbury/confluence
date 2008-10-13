@@ -24,23 +24,29 @@ int main (int argc, char const *argv[])
 	// 	test.replace(test.find(find), find.length(), "tester");
 	// 	cout << test << endl;
 
-	//---
-	// code testing String class
-	// String test("BAAB"), replace("D"), needle("AA");
-	// LinComb<String, int> replacement(replace, 3);
-	// replacement.push_back(replace, 4);
-	// cout << test << endl;
-	// LinComb<String, int> result = test.searchReplace(needle, replacement);
-	// cout << result << endl;
-	// 
-	// RewriteSystem<String, int> rw_system;
-	// rw_system.push_back(needle, replacement);
-	// 
-	// LinComb<String, int> result2 = Simplify::simplifyElement(test, 1, rw_system);
-	// cout << endl << result2 << endl;
-	//---
+	// ---
+	//code testing String class
+	String test("BAAB"), replace("D"), needle("AA");
+	LinComb<String, int> replacement(replace, 3);
+	replacement.push_back(replace, 4);
+	cout << "Test String: " << test << endl;
 	
-	String ol1("ABC"), ol2("BCA");
+	LinComb<String, int> result = test.searchReplace(needle, replacement);
+	cout << "Result: " << result << endl;
+	
+	RewriteSystem<String, int> rw_system;
+	rw_system.push_back(needle, replacement);
+	
+	String rule2_needle("BDB"), rule2_replace("Z");
+	LinComb<String, int> rule2_replacement(rule2_replace, 100);
+	rw_system.push_back(rule2_needle, rule2_replacement);
+	
+	LinComb<String, int> result2 = Simplify::simplifyElement(test, 1, rw_system);
+	cout << endl << "Simplification: " << result2 << endl;
+	// ---
+	
+	String ol1("ABC");
+	String ol2("DEFADFSDFSDFSDFABCA");
 	cout << endl << ol1 << endl << ol2 << endl;
 	cout << "ol2.computeOverlap(ol1)" << endl << ol2.computeOverlap(ol1) << endl;
 	cout << "ol2.computeOverlap(ol1)" << endl << ol1.computeOverlap(ol2) << endl;
