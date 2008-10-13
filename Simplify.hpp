@@ -55,13 +55,10 @@ public:
 				for(typename RewriteSystem<E, F>::const_iterator ruleIter = rewriteSystem.begin(); ruleIter != rewriteSystem.end(); ruleIter++) {
 					// apply the rule to the base element, which returns a linear combination which
 					// is equivalent to (*objectIter).
-
 					simplifiedComb = objectIter->first.searchReplace(ruleIter->first, ruleIter->second);
 
 					// is the list empty (ie no simplification done)
 					if(!simplifiedComb.empty()) {
-						// the list isn't empty
-
 						// now need to multiply through by the coefficient of objectIter (which is
 						// objectIter->second)
 						simplifiedComb *= objectIter->second;
@@ -78,7 +75,7 @@ public:
 						// and since we have simplified the expression, we need to mark the flag
 						flag = true;
 					}
-				}				
+				}
 			}
 		}
 	}
