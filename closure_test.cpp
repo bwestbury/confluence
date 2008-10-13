@@ -20,12 +20,11 @@ int main (int argc, char const *argv[])
    //g.output();
    //g.closure();
    //cout << "Closure:" << endl;
-   //g.output();
    
    SVGGraphDrawer gd;
    gd.constructGraphDiagram(g);
    gd.outputGraphDiagram("closure_test.svg");
-   
-   
+
+   gd.outputGraphDiagram("file_name.svg");
    return 0;
 }
