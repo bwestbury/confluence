@@ -22,11 +22,13 @@ using namespace std;
 
 namespace Confluence {
 
+//class IGraph;
+
 class Graph
 {
 public:
-    
-	friend class GraphDrawer;
+	//friend class IGraph;
+	//friend class GraphDrawer;
     
 	Graph () {}
 	
@@ -607,7 +609,7 @@ public:
     //  return NULL;
     // }
 		
-private:
+//private:
 	
     // int *locate(const Graph &g)
     // {
@@ -708,13 +710,13 @@ private:
 	set<int> I;
 };
 
-ostream &operator<<(ostream &os, Graph &g) {
+/*ostream &operator<<(ostream &os, Graph &g) {
 	return g.output(os);
 }
 
 ofstream &operator<<(ofstream &os, Graph &g) {
 	return g.raw_output(os);
-}
+}*/
 
 }
 

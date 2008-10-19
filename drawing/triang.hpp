@@ -1,14 +1,14 @@
 // 
-//  LComplex.hpp
+//  triang.hpp
 //  
 //  Created by Sebastian Jörn on 2008-07-30.
 //  Copyright 2008 Sebastian Jörn. All rights reserved.
 // 
 
-#ifndef IGRAPH_H
-#define IGRAPH_H
+#ifndef TRIANG_HPP
+#define TRIANG_HPP
 
-#include "Graph.hpp"
+#include "../Graph.hpp"
 
 using namespace Confluence;
 
@@ -80,4 +80,4 @@ private:
 };
 
 //}
-#endif /* IGRAPH_H */
+#endif /* TRIANG_HPP */

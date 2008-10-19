@@ -1,11 +1,11 @@
 // 
-//  LComplex.cpp
+//  triang.cpp
 //  
 //  Created by Sebastian Jörn on 2008-07-30.
 //  Copyright 2008 Sebastian Jörn. All rights reserved.
 // 
 
-#include "IGraph.h"
+#include "triang.hpp"
 
 
 IGraph::IGraph(Graph &gnew, int ndef): g(gnew), newdef(ndef)

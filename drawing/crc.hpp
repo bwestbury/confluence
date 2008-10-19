@@ -1,15 +1,15 @@
 // 
-//  LComplex.h
+//  crc.hpp
 //  
 //  Created by Sebastian Jörn on 2008-07-30.
 //  Copyright 2008 Sebastian Jörn. All rights reserved.
 // 
 
-#ifndef LCOMPLEX_H
-#define LCOMPLEX_H
+#ifndef CRC_HPP
+#define CRC_HPP
 
 #include <cmath>
-#include "IGraph.h"
+#include "triang.hpp"
 #include "BoardLib/Board.h"
 using namespace BoardLib;
 
@@ -57,7 +57,4 @@ private:
 
 long double angle(long double r, long double r1, long double r2);//Law of Cosines.
 
-//The main output function for the class Graph:
-void Graph_output(Graph &g, int *boundary);
-
-#endif /* LCOMPLEX_H */
+#endif /* CRC_HPP */
