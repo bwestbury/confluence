@@ -12,6 +12,7 @@
 #include <iostream>
 #include <iterator>
 #include <fstream>
+#include <utility>
 #include <list>
 #include <map>
 #include <set>
@@ -22,16 +23,17 @@ using namespace std;
 
 namespace Confluence {
 
-//class IGraph;
-
 class Graph
 {
 public:
-	//friend class IGraph;
-	//friend class GraphDrawer;
     
 	Graph () {}
+
+	/*
+		Creates a new Graph object instance using the data from the
+		given filename
 	
+	*/
 	Graph (char *filename) {
 		ifstream fin(filename, ifstream::in);
 
@@ -109,14 +111,14 @@ public:
 	
 	~Graph () {};
 	
-	void save(char *filename) {
+	void save (char *filename) {
 		ofstream fout(filename, ios::out);
 		raw_output(fout);
 		fout.close();
 	}
 	
 	
-	void rotate(int k) {
+	void rotate (int k) {
 		if(0 < k && k < B) {
 			int *p = new int[N];
 			
@@ -144,7 +146,7 @@ public:
 		Renumbers the points according to the permutation int *p
 		
 	*/
-	void renumber(int *p)
+	void renumber (int *p)
 	{
 		//output(p);
 		
@@ -611,49 +613,58 @@ public:
 		
 //private:
 	
-    // int *locate(const Graph &g)
-    // {
-    //  int *p = new int[g.N];
-    //          
-    //  bool flag;
-    //  bool break_again = false;
-    //  for(int r = 0; r < g.N; r++) {
-    //      // should this be p[0] = r??????
-    //      for(int i = 1; i < g.N; i++) {
-    //          p[i] = -1;
-    //      }
-    //      p[0] = r;
-    //      
-    //      flag = true;
-    //      while(flag) {
-    //          flag = false;
-    //          for(int i = 0; i < N; i++) {
-    //              if(p[c[i]] == -1) {
-    //                  // check label
-    //                  p[c[i]] = g.c[p[i]];
-    //                  flag = true;
-    //              } else if(p[c[i]] != g.c[p[i]]) {
-    //                  break_again = true;
-    //                  break;
-    //              }
-    //              if(p[e[i]] == -1) {
-    //                  // check label
-    //                  
-    //                  p[e[i]] = g.e[p[i]];
-    //                  flag = true;
-    //              } else if(p[e[i]] != g.e[p[i]]) {
-    //                  break_again = true;
-    //                  break;
-    //              }
-    //          }
-    //          if(break_again) {
-    //              break_again = false;
-    //              break;
-    //          }
-    //      }
-    //  }
-    //  return p;
-    // }
+    pair<int*, bool> locate(Graph &g)
+    {
+		int *p = new int[g.N];
+        
+		bool flag;
+		bool done;
+		bool break_again = false;
+		for(unsigned int r = 0; r < N; r++) {
+		    // should this be p[0] = r??????
+		    for(int i = 1; i < g.N; i++) {
+		        p[i] = -1;
+		    }
+		    p[0] = r;
+
+		    flag = true;
+		    while(flag) {
+		        flag = false;
+				done = false;
+		        for(unsigned int i = 0; i < g.N; i++) {
+		            if(p[g.c[i]] == -1) {
+		                // check label
+		                p[g.c[i]] = c[p[i]];
+		                flag = true;
+		            } else if(p[g.c[i]] != c[p[i]]) {
+		                break_again = true;
+		                break;
+		            }
+					if (i >= g.B) {
+						int g_e_i = g.e[i];
+						if(p[g_e_i] == -1) {
+			                // check label
+			                p[g_e_i] = e[p[i]];
+			                flag = true;
+			            } else if(p[g_e_i] != e[p[i]]) {
+			                break_again = true;
+			                break;
+			            }
+					}
+					if ((i+1) == g.N) {
+						pair<int *, bool> win(p, true);
+						return win;
+					}
+		        }
+		        if(break_again) {
+		            break_again = false;
+		            break;
+		        }
+		    }
+		}
+		pair< int *, bool> fail(NULL, false);
+		return fail;
+    }
 	
 	
 	/*
@@ -710,14 +721,14 @@ public:
 	set<int> I;
 };
 
-/*ostream &operator<<(ostream &os, Graph &g) {
+/* ostream &operator<<(ostream &os, Graph &g) {
 	return g.output(os);
 }
 
 ofstream &operator<<(ofstream &os, Graph &g) {
 	return g.raw_output(os);
-}*/
-
+}
+ */
 }
 
 #endif /* _GRAPH_HPP_ */
