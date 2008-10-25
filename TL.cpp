@@ -10,7 +10,8 @@
 
 // #include "Confluence.hpp"
 #include "Graph.hpp"
-#include "SVGGraphDrawer.hpp"
+//#include "SVGGraphDrawer.hpp"
+#include "drawing/drawing.hpp"
 
 #include <map>
 #include <set>
@@ -32,12 +33,12 @@ int main (int argc, char const* argv[])
 	e[0] = -1;
 	e[1] = -1;
 	Graph cup(2, 0, I, c, e);
-	cout << cup << endl;
+	//cout << cup << endl;
 	
 	Graph temp;
 	temp = cup;
 	temp.rotate(1);
-	cout << temp << endl;
+	//cout << temp << endl;
 	
 	
 	int n;
@@ -127,7 +128,13 @@ int main (int argc, char const* argv[])
 	t.removeLoops();
 	cout << "After Removed Loops:" << endl;
 	t.output();
-	
+
+	int boundary[6] = {0,0,2,0,0,2};
+
+	drawGraph(t, boundary, "tl.svg", false);
+	//cout << t << endl;
+
+
     //SVGGraphDrawer d;
     //cout << "Here";
     //d.constructGraphDiagram(t);
@@ -141,9 +148,9 @@ int main (int argc, char const* argv[])
 	// 	cout << "Boooooo!" << endl;
 	// }
 	
-	int count = 0;
-	cout << "**************************************************************" << endl;
-	for(iter = C[3].begin(); iter != C[3].end(); iter++) {
+	//int count = 0;
+	//cout << "**************************************************************" << endl;
+	/*for(iter = C[3].begin(); iter != C[3].end(); iter++) {
 		
 		if((*iter).isomorphic(t)) {
 			iter->output();
@@ -151,7 +158,7 @@ int main (int argc, char const* argv[])
 		}
 	}
 	
-	cout << endl << endl << count << endl << endl;
+	cout << endl << endl << count << endl << endl;*/
 
 	return 0;
 }
