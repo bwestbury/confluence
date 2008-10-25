@@ -249,4 +249,4 @@ ostream &operator<<(ostream &os, LinComb<E, F> &linComb) {
 
 }
 
-#endif /* _LINCOMB_HPP_ */
+#endif  /* _LINCOMB_HPP_ */

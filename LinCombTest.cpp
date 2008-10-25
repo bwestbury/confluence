@@ -1,5 +1,5 @@
 // 
-//  Test3.cpp
+//  LinCombTest.cpp
 //  confluence
 //  
 //  Created by David Howden on 2007-07-08.
