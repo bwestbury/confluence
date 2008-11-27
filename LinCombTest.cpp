@@ -6,7 +6,6 @@
 //  Copyright 2007 David Howden. All rights reserved.
 // 
 
-// #include <ginac/ginac.h>
 #include <iostream>
 #include <string>
 
@@ -14,7 +13,6 @@
 #include "LinComb.hpp"
 
 using namespace std;
-// using namespace GiNaC;
 using namespace Confluence;
 
 class Test
@@ -36,11 +34,6 @@ int main (int argc, char const *argv[])
 {
 	Test t1("Hello"), t2("World");
 	
-	// ex p1, p2;
-	// symbol p("p"), q("q");
-	// 
-	// p1 = p*2;
-	// p2 = q*3;
 	
 	// LinComb<Test, ex> lc1(t1, p1), lc2(t2, p2);
 	LinComb<Test, int> lc1(t1, 1), lc2(t2, 2);

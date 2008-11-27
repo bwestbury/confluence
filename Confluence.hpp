@@ -18,4 +18,4 @@
 #include "RewriteSystem.hpp"
 #include "Simplify.hpp"
 
-#endif /* _CONFLUENCE_HPP_ */
+#endif  /* _CONFLUENCE_HPP_ */

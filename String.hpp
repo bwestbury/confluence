@@ -10,15 +10,11 @@
 #define _STRING_HPP_
 
 #include <string>
-// #include <sstream>
-// #include <iostream>
 
 #include "Confluence.hpp"
 
 using namespace std;
-
-namespace Confluence
-{
+using namespace Confluence;
 
 class String
 {
@@ -141,8 +137,6 @@ ostream &operator<< (ostream& os, String str)
 {
 	str.output(os);
 	return os;
-}
-
 }
 
 #endif /* _STRING_HPP_ */

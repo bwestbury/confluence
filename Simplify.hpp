@@ -17,15 +17,12 @@ namespace Confluence
 
 class Simplify
 {
-	// friend class RewriteSystem<E, F>;
-	// friend class LinComb<E, F>;
 public:
-	
 	/*
 		Reduces a single element, given by coefficient F and base E, and returns
 		the resulting linear combination.
 		
-		By definition, this linear combination should only have one term in.
+		By definition, this linear combination should only have one term.
 	*/
 	template <class E, class F>
 	static LinComb<E, F> simplifyElement(const E base, const F coeff, const RewriteSystem<E, F> &rewriteSystem) {
@@ -34,7 +31,6 @@ public:
 		return result;
 	}
 	
-	
 	/*
 		Reduces a linear combination to its minimal form using a rewrite system.
 		
@@ -42,9 +38,7 @@ public:
 	*/
 	template <class E, class F>
 	static void simplifyElement(LinComb<E, F> &base, const RewriteSystem<E, F> &rewriteSystem) {
-		
 		LinComb<E, F> simplifiedComb;
-		
 		bool flag = true;
 
 		//  loop through all of the base elements
