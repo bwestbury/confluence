@@ -30,10 +30,17 @@ class LinComb
 public:
 	
 	/*
+		Typedef definitions for pairs
+	*/
+	typedef pair<E, F> monomial;
+	
+	
+	/*
 		Typedef definitions of iterators
 	*/
-	typedef typename list< pair<E, F> >::iterator iterator;
-	typedef typename list< pair<E, F> >::const_iterator const_iterator;
+	typedef typename list< monomial >::iterator iterator;
+	typedef typename list< monomial >::const_iterator const_iterator;
+	
 	
 	/*
 		Empty contructor
@@ -45,7 +52,8 @@ public:
 		Construct a linear combination of one element, 
 		with object E and coefficient F
 	*/
-	LinComb(E object, F coef) {
+	LinComb(E object, F coef)
+	{
 		push_back(object, coef);
 	}
 
@@ -61,7 +69,7 @@ public:
 	*/
 	void push_back(E object, F coef)
 	{
-		pair<E, F> p(object, coef);
+		monomial p(object, coef);
 		push_back(p);
 	}
 	
@@ -72,14 +80,14 @@ public:
 		If the object being added is "==" to one already in the list, then the coeffs
 		are added.
 	*/
-	void push_bach(pair<E, F> &p)
+	void push_back(monomial p)
 	{
-		bool found = true;
+		bool found = false;
 		for (iterator iter = begin(); iter != end(); iter++) {
 			// check to see if there is an object "==" to the one being added
-			if (p->first == _iter->first) {
+			if (p.first == iter->first) {
 				// if so, add the coeffs
-				_iter->second += iter->second;
+				iter->second += p.second;
 				found = true;
 				break;
 			}
@@ -87,7 +95,7 @@ public:
 		// check if the object was "==" to one already in the list
 		if (!found) {
 			// nope, add it to the end...
-			contents.push_back(*iter);
+			contents.push_back(p);
 		}
 	}
 	
@@ -270,7 +278,7 @@ public:
 	}
 	
 private:
-	list< pair<E, F> > contents;
+	list< monomial > contents;
 };
 
 } /* Confluence */
