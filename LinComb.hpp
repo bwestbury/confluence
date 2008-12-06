@@ -62,7 +62,33 @@ public:
 	void push_back(E object, F coef)
 	{
 		pair<E, F> p(object, coef);
-		contents.push_back(p);
+		push_back(p);
+	}
+	
+	
+	/*
+		Adds a term to the end of the linear combination.
+		
+		If the object being added is "==" to one already in the list, then the coeffs
+		are added.
+	*/
+	void push_bach(pair<E, F> &p)
+	{
+		bool found = true;
+		for (iterator iter = begin(); iter != end(); iter++) {
+			// check to see if there is an object "==" to the one being added
+			if (p->first == _iter->first) {
+				// if so, add the coeffs
+				_iter->second += iter->second;
+				found = true;
+				break;
+			}
+		}
+		// check if the object was "==" to one already in the list
+		if (!found) {
+			// nope, add it to the end...
+			contents.push_back(*iter);
+		}
 	}
 	
 	
@@ -151,7 +177,7 @@ public:
 	{
 		//contents.splice(contents.end(), lc.contents, lc.contents.begin(), lc.contents.end());
 		for (iterator iter = lc.begin(); iter != lc.end(); iter++) {
-			contents.push_back(*iter);
+			push_back(*iter);
 		}
 	}
 

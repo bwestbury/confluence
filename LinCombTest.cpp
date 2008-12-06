@@ -21,6 +21,8 @@ public:
 	Test (string n) : name(n) {}
 	~Test () {}
 	string getName() { return name; }
+	// this is now required
+	bool operator== (Test &t) { return (name == t.name); }
 private:
 	string name;
 };
@@ -47,6 +49,9 @@ int main (int argc, char const *argv[])
 	cout << "lc: " << lc << endl;
 	cout << "lc1: " << lc1 << endl;
 	cout << "lc2: " << lc2 << endl;
+	LinComb<Test, int> lc3;
+	lc3 = lc1 + lc1;
+	cout << "lc1 + lc1" << lc3 << endl;
 	
 	return 0;
 }
