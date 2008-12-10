@@ -78,8 +78,8 @@ public:
 		monomial p(coef, object);
 		push_back(p);
 	}
-	
-	
+
+
 	/*
 		Adds a term to the end of the linear combination.
 		
@@ -108,8 +108,8 @@ public:
 			_push_back(p);
 		}
 	}
-	
-	
+
+
 	/*
 		Removes the first item from the LinComb object and returns it
 	*/
@@ -237,8 +237,8 @@ public:
 			iter->first *= coef;
 		}
 	}
-	
-	
+
+
 	/*
 		Subtract the given LinComb object from this one
 		
@@ -250,8 +250,8 @@ public:
 			push_back(monomial(FZERO - iter->first, iter->second));
 		}
 	}
-	
-	
+
+
 	/*
 		Subtract the given LinComb object from this one
 		
@@ -264,8 +264,8 @@ public:
 		result -= lc;
 		return result;
 	}
-	
-	
+
+
 	/*
 		Divide all the coefficients in this object by the given coef
 		
@@ -277,8 +277,8 @@ public:
 			iter->first /= coef;
 		}
 	}
-	
-	
+
+
 	/*
 		Divide all the coefficients in this object by the given coef
 		
@@ -291,7 +291,8 @@ public:
 		result /= coef;
 		return result;
 	}
-	
+
+
 	/*
 		Returns the coef of the given object in this linear combination.
 	*/
@@ -362,7 +363,11 @@ public:
 	}
 	
 private:
+	/*
+		List to store the monomials to form linear combinations.
+	*/
 	list< monomial > contents;
+
 
 	/*
 		Internal function for adding monomial to the end this linear
@@ -378,6 +383,7 @@ private:
 };
 
 } /* Confluence */
+
 
 template<class F, class T, F FZERO>
 ostream &operator<<(ostream &os, Confluence::LinComb<F, T, FZERO> &linComb) {
