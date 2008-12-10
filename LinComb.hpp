@@ -24,7 +24,13 @@ using namespace std;
 namespace Confluence
 {
 
-template <class E, class F>
+/*
+	Linear combinations with:
+	-	F as the field class
+	-	T as the object class
+	-	FZERO as the field object representing 0
+*/
+template <class F, class T, F FZERO>
 class LinComb
 {
 public:
@@ -32,7 +38,7 @@ public:
 	/*
 		Typedef definitions for pairs
 	*/
-	typedef pair<E, F> monomial;
+	typedef pair<F, T> monomial;
 	
 	
 	/*
@@ -52,9 +58,9 @@ public:
 		Construct a linear combination of one element, 
 		with object E and coefficient F
 	*/
-	LinComb(E object, F coef)
+	LinComb(F coef, T object)
 	{
-		push_back(object, coef);
+		push_back(coef, object);
 	}
 
 
@@ -67,9 +73,9 @@ public:
 	/*
 		Adds a term to the end of the linear combination
 	*/
-	void push_back(E object, F coef)
+	void push_back(F coef, T object)
 	{
-		monomial p(object, coef);
+		monomial p(coef, object);
 		push_back(p);
 	}
 	
@@ -85,9 +91,13 @@ public:
 		bool found = false;
 		for (iterator iter = begin(); iter != end(); iter++) {
 			// check to see if there is an object "==" to the one being added
-			if (p.first == iter->first) {
+			if (p.second == iter->second) {
 				// if so, add the coeffs
-				iter->second += p.second;
+				iter->first += p.first;
+				if (iter->first == FZERO) {
+					// remove the monomial from the linear combination
+					contents.erase(iter);
+				}
 				found = true;
 				break;
 			}
@@ -95,7 +105,7 @@ public:
 		// check if the object was "==" to one already in the list
 		if (!found) {
 			// nope, add it to the end...
-			contents.push_back(p);
+			_push_back(p);
 		}
 	}
 	
@@ -160,9 +170,9 @@ public:
 		NB: This does not simplify the result, it simply adds the
 		two combinations as arrays.
 	*/
-	LinComb<E, F> operator+ (LinComb<E,F> &lc)
+	LinComb<F, T, FZERO> operator+ (LinComb<F, T, FZERO> &lc)
 	{
-		LinComb<E, F> result;
+		LinComb<F, T, FZERO> result;
 	
 		// copy the items from this object
 		result.contents = contents;
@@ -176,12 +186,11 @@ public:
 
 
 	/*
-		Add the given LinComb object to this one
-	
-		NB: this function simply appends the given LinComb object to
-		this one.
+		Add the given LinComb object to this one.
+		
+		Modifies this object.
 	*/
-	void operator+= (LinComb<E, F> &lc)
+	void operator+= (LinComb<F, T, FZERO> &lc)
 	{
 		//contents.splice(contents.end(), lc.contents, lc.contents.begin(), lc.contents.end());
 		for (iterator iter = lc.begin(); iter != lc.end(); iter++) {
@@ -195,14 +204,18 @@ public:
 
 		Returns the resulting LinComb object.
 	*/
-	LinComb<E, F> operator* (const F &coef)
+	LinComb<F, T, FZERO> operator* (const F &coef)
 	{
-		LinComb<E, F> result;
-	
+		LinComb<F, T, FZERO> result;
+		
+		if (coef == FZERO) {
+			return result;
+		}
+		
 		result.contents = contents;
 	
-		for(iterator iter = result.contents.begin(); iter != result.contents.end(); iter++) {
-			iter->second *= coef;
+		for(iterator iter = result.begin(); iter != result.end(); iter++) {
+			iter->first *= coef;
 		}
 		return result;
 	}
@@ -215,44 +228,115 @@ public:
 	*/
 	void operator*= (const F &coef)
 	{
+		if (coef == FZERO) {
+			contents.empty();
+			return;
+		}
+		
 		for(iterator iter = contents.begin(); iter != contents.end(); iter++) {
-			iter->second *= coef;
+			iter->first *= coef;
 		}
 	}
-
-
+	
+	
 	/*
-		Evaluates (this) < (lc) and returns the result.
+		Subtract the given LinComb object from this one
+		
+		Modifies this object
 	*/
-	bool operator< (const LinComb<E, F> &lc)
+	void operator-= (LinComb<F, T, FZERO> &lc)
 	{
-		if (contents.size < lc.contents.size) {
-			return true;
+		for (iterator iter = lc.begin(); iter != lc.end(); iter++) {
+			push_back(monomial(FZERO - iter->first, iter->second));
 		}
-	
-		// TODO:  add more code here!
-	
-		return false;
 	}
-
-
+	
+	
 	/*
-		Evaluates (this) > (lc) and returns the result.
+		Subtract the given LinComb object from this one
+		
+		Returns the result in a new object
 	*/
-	bool operator> (const LinComb<E, F> &lc)
+	LinComb<F, T, FZERO> operator- (LinComb<F, T, FZERO> &lc)
 	{
-		return lc < this;
+		LinComb<F, T, FZERO> result;
+		result.contents = contents;
+		result -= lc;
+		return result;
 	}
-
-
-	/*
-		Computes the overlap of (this) and (lc) and returns the result
-		as a new LinComb
-	*/
-	LinComb<E, F> computeOverlap (LinComb<E, F> &lc)
-	{
 	
+	
+	/*
+		Divide all the coefficients in this object by the given coef
+		
+		Modified this object
+	*/
+	void operator/= (const F &coef)
+	{
+		for (iterator iter = begin(); iter != end(); iter++) {
+			iter->first /= coef;
+		}
 	}
+	
+	
+	/*
+		Divide all the coefficients in this object by the given coef
+		
+		Returns the result in a new object
+	*/
+	LinComb<F, T, FZERO> operator/ (const F &coef)
+	{
+		LinComb<F, T, FZERO> result;
+		result.contents = contents;
+		result /= coef;
+		return result;
+	}
+	
+	/*
+		Returns the coef of the given object in this linear combination.
+	*/
+	F find_object_coef(T object)
+	{
+		for (iterator iter = begin(); iter != end(); iter++) {
+			if (iter->second == object) {
+				return iter->first;
+			}
+		}
+		return FZERO;
+	}
+
+	// /*
+	// 	Evaluates (this) < (lc) and returns the result.
+	// */
+	// bool operator< (const LinComb<F, T, FZERO> &lc)
+	// {
+	// 	if (contents.size < lc.contents.size) {
+	// 		return true;
+	// 	}
+	// 
+	// 	// TODO:  add more code here!
+	// 
+	// 	return false;
+	// }
+	// 
+	// 
+	// /*
+	// 	Evaluates (this) > (lc) and returns the result.
+	// */
+	// bool operator> (const LinComb<F, T, FZERO> &lc)
+	// {
+	// 	return lc < this;
+	// }
+	// 
+	// 
+	// /*
+	// 	Computes the overlap of (this) and (lc) and returns the result
+	// 	as a new LinComb
+	// */
+	// LinComb<E, F> computeOverlap (LinComb<F, T, FZERO> &lc)
+	// {
+	// 
+	// }
 
 
 	/*
@@ -279,12 +363,24 @@ public:
 	
 private:
 	list< monomial > contents;
+
+	/*
+		Internal function for adding monomial to the end this linear
+		combination.
+		
+		Should only be used when it is know that the resulting expression
+		is reduced.
+	*/
+	void _push_back(monomial p)
+	{
+		contents.push_back(p);
+	}
 };
 
 } /* Confluence */
 
-template<class E, class F>
-ostream &operator<<(ostream &os, Confluence::LinComb<E, F> &linComb) {
+template<class F, class T, F FZERO>
+ostream &operator<<(ostream &os, Confluence::LinComb<F, T, FZERO> &linComb) {
 	return linComb.output(os);
 }
 

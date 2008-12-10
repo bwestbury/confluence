@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 
-#include "Confluence.hpp"
+// #include "Confluence.hpp"
 #include "LinComb.hpp"
 
 using namespace std;
@@ -38,20 +38,26 @@ int main (int argc, char const *argv[])
 	
 	
 	// LinComb<Test, ex> lc1(t1, p1), lc2(t2, p2);
-	LinComb<Test, int> lc1(t1, 1), lc2(t2, 2);
+	LinComb<int, Test, 0> lc1(1, t1), lc2(2, t2);
 	
 	cout << "lc1: " << lc1 << endl << "lc2: " << lc2 << endl;
 	
 	// LinComb<Test, ex> lc;
-	LinComb<Test, int> lc;
+	LinComb<int, Test, 0> lc;
 	lc = lc1 + lc2;
 	
 	cout << "lc: " << lc << endl;
 	cout << "lc1: " << lc1 << endl;
 	cout << "lc2: " << lc2 << endl;
-	LinComb<Test, int> lc3;
+	LinComb<int, Test, 0> lc3;
 	lc3 = lc1 + lc1;
-	cout << "lc1 + lc1" << lc3 << endl;
+	cout << "lc1 + lc1: " << lc3 << endl;
+	
+	LinComb<int, Test, 0> lc4;
+	lc4 = lc1 - lc1;
+	cout << "lc1 - lc1: " << lc4 << endl;
+	
+	cout << "lc1.find_object_coef(t1): " << lc1.find_object_coef(t1) << endl;
 	
 	return 0;
 }
