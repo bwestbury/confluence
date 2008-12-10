@@ -9,7 +9,7 @@
 #include <iostream>
 #include <string>
 
-// #include "Confluence.hpp"
+#include "Confluence.hpp"
 #include "LinComb.hpp"
 
 using namespace std;

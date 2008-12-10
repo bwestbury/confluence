@@ -15,8 +15,8 @@
 #ifndef _REWRITESYSTEM_HPP_
 #define _REWRITESYSTEM_HPP_
 
-#include <utility>
 #include <list>
+#include <utility>
 
 #include "LinComb.hpp"
 
@@ -25,27 +25,47 @@ using namespace std;
 namespace Confluence
 {
 
-template <class E, class F>
-class RewriteSystem {
+template <class F, class T, F FZERO>
+class RewriteSystem
+{
 public:
-	
+
+	/*
+		RewriteRule type definitions
+	*/
+	typedef pair<T, LinComb<F, T, FZERO> > rewriteRule;
+
+
 	/*
 		Iterator type definitions
-		
 	*/
-	typedef typename list< pair<E, LinComb<E, F> > >::iterator iterator;
-	typedef typename list< pair<E, LinComb<E, F> > >::const_iterator const_iterator;
+	typedef typename list<rewriteRule>::iterator iterator;
+	typedef typename list<rewriteRule>::const_iterator const_iterator;
 
-	RewriteSystem() {}
-	~RewriteSystem() {}
+	/*
+		Empty contructor
+	*/
+	RewriteSystem()
+	{
+		
+	}
+
+
+	/*
+		Destructor
+	*/
+	~RewriteSystem()
+	{
+		
+	}
 	
 	
 	/*
 		Adds a rewrite rule to this rewrite system.
 	*/
-	void push_back(E lhs, LinComb<E, F> rhs)
+	void push_back(T lhs, LinComb<F, T, FZERO> rhs)
 	{
-		pair<E, LinComb<E, F> > p(lhs, rhs);
+		rewriteRule p(lhs, rhs);
 		rules.push_back(p);
 	}
 
@@ -58,7 +78,7 @@ public:
 	*/
 	void completeKnuthBendix()
 	{
-	
+		
 	}
 
 
@@ -96,8 +116,8 @@ public:
 	{
 		return rules.end();
 	}
-	
-	
+
+
 	/*
 		Output the RewriteSystem to the ostream os
 	*/
@@ -107,14 +127,19 @@ public:
 			os << iter->first << " --> " << iter->second << endl;
 		}
 	}
+	
 private:
-	list< pair<E, LinComb<E, F> > > rules;
+	/*
+		List to store the rewrite rules for the rewrite system
+	*/
+	list<rewriteRule> rules;
 };
 
 }	/* Confluence */
 
-template<class E, class F>
-ostream &operator<< (ostream &os, Confluence::RewriteSystem<E, F> &rs)
+
+template<class F, class T, F FZERO>
+ostream &operator<< (ostream &os, Confluence::RewriteSystem<F, T, FZERO> &rs)
 {
 	rs.output(os);
 	return os;
